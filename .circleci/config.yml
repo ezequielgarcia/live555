@@ -19,7 +19,7 @@ jobs:
           command: 'dnf --disablerepo=fedora-cisco-openh264 install -y make gcc gcc-c++'
       - run:
           name: Generate makefiles
-          command: './genMakefile linux'
+          command: './genMakefiles linux'
       - run:
           name: Building
           command: 'make'
