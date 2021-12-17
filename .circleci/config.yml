@@ -28,7 +28,7 @@ jobs:
           command: curl https://jell.yfish.us/media/jellyfish-3-mbps-hd-h264.mkv -o test.mkv
       - run:
           name: Basic sanity check
-          command: ./testProgs/testMKVStreamer & ./testProgs/openRTSP -d 1 rtsp://192.168.100.17:8554/testStream
+          command: ./testProgs/testMKVStreamer & sleep 3 && ./testProgs/openRTSP -d 1 rtsp://127.0.0.1:8554/testStream && kill %1
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
