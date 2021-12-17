@@ -15,17 +15,20 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Installing packages
-          command: 'dnf --disablerepo=fedora-cisco-openh264 install -y make gcc gcc-c++'
+          name: Install packages
+          command: 'dnf --disablerepo=fedora-cisco-openh264 install -y make gcc gcc-c++ curl'
       - run:
           name: Generate makefiles
           command: './genMakefiles linux'
       - run:
-          name: Building
+          name: Build
           command: 'make'
       - run:
-          name: Unit Testing
-          command: 'echo OK'
+          name: Download media samples
+          command: curl https://jell.yfish.us/media/jellyfish-3-mbps-hd-h264.mkv -o test.mkv
+      - run:
+          name: Basic sanity check
+          command: ./testProgs/testMKVStreamer & ./testProgs/openRTSP -d 1 rtsp://192.168.100.17:8554/testStream
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
