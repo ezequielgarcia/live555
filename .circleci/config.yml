@@ -16,7 +16,7 @@ jobs:
       - checkout
       - run:
           name: Installing packages
-          command: 'dnf install -y make gcc gcc-c++'
+          command: 'dnf --disablerepo=fedora-cisco-openh264 install -y make gcc gcc-c++'
       - run:
           name: Generate makefiles
           command: './genMakefile linux'
