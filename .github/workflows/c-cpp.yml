@@ -1,0 +1,25 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: configure
+      run: ./genMakefiles linux
+    - name: make
+      run: make
+    - name: download samples
+      run: curl https://jell.yfish.us/media/jellyfish-3-mbps-hd-h264.mkv -o test.mkv
+    - name: Basic sanity check
+      run: ./testProgs/testMKVStreamer & sleep 3 && ./testProgs/openRTSP -d 1 rtsp://127.0.0.1:8554/testStream && kill %1
+
+
